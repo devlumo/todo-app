@@ -1,0 +1,14 @@
+.todo-item {
+  list-style: none;
+  width: 100%;
+  padding: 1.2em;
+}
+
+.todo-text {
+  color: purple;
+
+  &.complete {
+    text-decoration: line-through;
+    color: red;
+  }
+}
