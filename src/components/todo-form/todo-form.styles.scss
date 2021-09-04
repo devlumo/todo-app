@@ -1,0 +1,15 @@
+@import "../../utils/variables.scss";
+
+.todo-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+
+  input {
+    padding: 0.5em;
+    border-radius: 0.2em;
+    width: 100%;
+  }
+}

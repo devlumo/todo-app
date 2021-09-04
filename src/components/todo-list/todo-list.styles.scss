@@ -1,9 +1,14 @@
+@import "../../utils/variables.scss";
+
 .todo-list {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 60%;
   max-width: 100%;
+  border-radius: 0.8em;
+  background-color: $grey;
 
   label {
     margin-right: 1em;
