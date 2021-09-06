@@ -43,14 +43,19 @@ export default class TodoList extends Component {
     this.setState({ todos: [...currentList] });
   };
 
+  handleClear = (e) => {
+    e.preventDefault();
+    this.setState({ currentInput: "" });
+  };
+
   render() {
     return (
       <div className="todo-list">
-        <h2>Todo List</h2>
         <TodoForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           currentInput={this.state.currentInput}
+          handleClear={this.handleClear}
         />
         <ul>
           {this.state.todos.map(({ id, todo, complete }) => (

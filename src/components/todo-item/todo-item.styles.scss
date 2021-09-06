@@ -7,7 +7,7 @@
 }
 
 .todo-text {
-  color: purple;
+  color: $grey;
 
   &.complete {
     text-decoration: line-through;

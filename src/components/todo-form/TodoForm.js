@@ -1,19 +1,37 @@
 import React from "react";
 import "./todo-form.styles.scss";
 
-export default function TodoForm({ handleSubmit, handleChange, currentInput }) {
+export default function TodoForm({
+  handleSubmit,
+  handleChange,
+  currentInput,
+  handleClear,
+}) {
   return (
     <div className="todo-form">
       <form onSubmit={handleSubmit}>
-        <label>Enter a Todo</label>
         <input
           type="text"
+          className="todo-input"
           autoComplete="off"
-          placeholder="Buy milk..."
+          placeholder="What do you need to do?"
           onChange={handleChange}
           value={currentInput}
         ></input>
-        <button type="submit">Add</button>
+        <div className="form-footer">
+          <div className="button-wrapper">
+            <button type="reset" className="clear-todo" onClick={handleClear}>
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="add-todo"
+              disabled={!currentInput.length ? true : false}
+            >
+              Add
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
