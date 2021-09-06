@@ -1,5 +1,6 @@
 import React from "react";
 import "./todo-item.styles.scss";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 export default function TodoItem({
   id,
@@ -21,7 +22,7 @@ export default function TodoItem({
       </div>
       <span className={`todo-text ${complete ? "complete" : ""}`}>{todo}</span>
       <button className="delete" onClick={() => handleDelete(id)}>
-        Delete
+        <RiDeleteBin5Line />
       </button>
     </li>
   );

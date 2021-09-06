@@ -24,8 +24,11 @@
     border: none;
     cursor: pointer;
     border-radius: 0.2em;
-    color: $white;
-    background-color: #db524d;
-    padding: 0.4em;
+    background-color: $white;
+    color: #db524d;
+    font-size: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
