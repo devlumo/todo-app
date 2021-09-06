@@ -3,6 +3,8 @@ import "./todo-list.styles.scss";
 import TodoItem from "../todo-item/TodoItem";
 import TodoForm from "../todo-form/TodoForm";
 import { v4 as uuidv4 } from "uuid";
+import { Howl } from "howler";
+import Sound from "../../assets/sounds/navigation_selection-complete-celebration.ogg";
 
 export default class TodoList extends Component {
   constructor() {
@@ -13,6 +15,10 @@ export default class TodoList extends Component {
       todos: [],
       completedTodos: [],
     };
+
+    this.sound = new Howl({
+      src: [Sound],
+    });
   }
 
   handleSubmit = (e) => {
@@ -39,6 +45,7 @@ export default class TodoList extends Component {
   };
 
   handleComplete = (id) => {
+    this.sound.play();
     const currentList = [...this.state.todos];
     const completedItem = currentList.findIndex((item) => item.id === id);
     currentList[completedItem].complete = !currentList[completedItem].complete;
