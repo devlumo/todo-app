@@ -28,7 +28,7 @@ export default function TodoForm({
               className="add-todo"
               disabled={!currentInput.length ? true : false}
             >
-              Add
+              Save
             </button>
           </div>
         </div>

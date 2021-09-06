@@ -2,15 +2,30 @@
 
 .todo-item {
   list-style: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
-  padding: 1.2em;
-}
+  padding: 1.8em;
 
-.todo-text {
-  color: $grey;
+  .todo-text {
+    color: $grey;
+    width: 80%;
+    word-wrap: break-word;
+    padding: 0.4em;
 
-  &.complete {
-    text-decoration: line-through;
-    color: red;
+    &.complete {
+      text-decoration: line-through;
+      color: red;
+    }
+  }
+
+  .delete {
+    border: none;
+    cursor: pointer;
+    border-radius: 0.2em;
+    color: $white;
+    background-color: #db524d;
+    padding: 0.4em;
   }
 }

@@ -10,13 +10,19 @@ export default function TodoItem({
 }) {
   return (
     <li className="todo-item">
-      <input
-        type="checkbox"
-        checked={complete}
-        onChange={() => handleComplete(id)}
-      />
-      <span className={`todo-text ${complete ? "complete" : ""}`}>{todo}</span>{" "}
-      <button onClick={() => handleDelete(id)}>X</button>
+      <div className="round">
+        <input
+          type="checkbox"
+          id="checkbox"
+          checked={complete}
+          onChange={() => handleComplete(id)}
+        />
+        <label for="checkbox"></label>
+      </div>
+      <span className={`todo-text ${complete ? "complete" : ""}`}>{todo}</span>
+      <button className="delete" onClick={() => handleDelete(id)}>
+        Delete
+      </button>
     </li>
   );
 }

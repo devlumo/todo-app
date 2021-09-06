@@ -1,0 +1,3 @@
+- add completed todos array to state
+- add deleted todos array to state
+- show count of completed todos / count of ALL todos on e.g (1/5)
