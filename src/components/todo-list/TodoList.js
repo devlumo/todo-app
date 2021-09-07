@@ -45,13 +45,15 @@ export default class TodoList extends Component {
   };
 
   handleComplete = (id) => {
-    this.sound.play();
     const currentList = [...this.state.todos];
     const completedItem = currentList.findIndex((item) => item.id === id);
     currentList[completedItem].complete = !currentList[completedItem].complete;
     const completedTodos = currentList.filter((item) => item.complete === true);
 
     this.setState({ todos: [...currentList], completedTodos: completedTodos });
+    if (currentList[completedItem].complete) {
+      this.sound.play();
+    }
   };
 
   handleClear = (e) => {
@@ -61,34 +63,37 @@ export default class TodoList extends Component {
 
   render() {
     return (
-      <div className="todo-list">
-        <div className="header">
-          <span className="heading">Tasks</span>
-          <span className="todo-counter">
-            {this.state.completedTodos.length +
-              "\n/ " +
-              this.state.todos.length}
-          </span>
+      <div className="container">
+        <div className="todo-list">
+          <div className="header">
+            <span className="heading">Tasks</span>
+            <span className="todo-counter">
+              {this.state.completedTodos.length +
+                "\n/ " +
+                this.state.todos.length}
+            </span>
+          </div>
+          <TodoForm
+            handleSubmit={this.handleSubmit}
+            handleChange={this.handleChange}
+            currentInput={this.state.currentInput}
+            handleClear={this.handleClear}
+          />
         </div>
-        <TodoForm
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          currentInput={this.state.currentInput}
-          handleClear={this.handleClear}
-        />
-
-        <ul className="todo-item-list">
-          {this.state.todos.map(({ id, todo, complete }) => (
-            <TodoItem
-              key={id}
-              todo={todo}
-              id={id}
-              complete={complete}
-              handleDelete={this.handleDelete}
-              handleComplete={this.handleComplete}
-            />
-          ))}
-        </ul>
+        <div className="items-container">
+          <ul className="todo-item-list">
+            {this.state.todos.map(({ id, todo, complete }) => (
+              <TodoItem
+                key={id}
+                todo={todo}
+                id={id}
+                complete={complete}
+                handleDelete={this.handleDelete}
+                handleComplete={this.handleComplete}
+              />
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
