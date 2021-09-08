@@ -2,19 +2,19 @@ import React, { Component } from "react";
 import "./todo-list.styles.scss";
 import TodoItem from "../todo-item/TodoItem";
 import TodoForm from "../todo-form/TodoForm";
-import { v4 as uuidv4 } from "uuid";
 import { Howl } from "howler";
 import Sound from "../../assets/sounds/navigation_selection-complete-celebration.ogg";
+import {
+  setCurrentInput,
+  addTodo,
+  completeTodo,
+  deleteTodo,
+} from "../../redux/todo/todo.actions";
+import { connect } from "react-redux";
 
-export default class TodoList extends Component {
+class TodoList extends Component {
   constructor() {
     super();
-
-    this.state = {
-      currentInput: "",
-      todos: [],
-      completedTodos: [],
-    };
 
     this.sound = new Howl({
       src: [Sound],
@@ -23,42 +23,32 @@ export default class TodoList extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        { id: uuidv4(), todo: this.state.currentInput, complete: false },
-      ],
-    });
-    this.setState({ currentInput: "" });
+    this.props.addTodo();
+    this.props.setCurrentInput("");
   };
 
   handleChange = (e) => {
-    this.setState({ currentInput: e.target.value });
+    this.props.setCurrentInput(e.target.value);
   };
 
   handleDelete = (id) => {
-    const newTodoList = this.state.todos.filter((todo) => todo.id !== id);
-    this.setState({
-      todos: [...newTodoList],
-      completedTodos: [...newTodoList],
-    });
+    const newTodoList = this.props.todos.filter((todo) => todo.id !== id);
+    this.props.deleteTodo(newTodoList);
   };
 
-  handleComplete = (id) => {
-    const currentList = [...this.state.todos];
-    const completedItem = currentList.findIndex((item) => item.id === id);
-    currentList[completedItem].complete = !currentList[completedItem].complete;
-    const completedTodos = currentList.filter((item) => item.complete === true);
-
-    this.setState({ todos: [...currentList], completedTodos: completedTodos });
-    if (currentList[completedItem].complete) {
+  handleComplete = async (id) => {
+    await this.props.completeTodo(id);
+    const itemComplete = this.props.completedTodos.find(
+      (item) => item.id === id
+    );
+    if (itemComplete) {
       this.sound.play();
     }
   };
 
   handleClear = (e) => {
     e.preventDefault();
-    this.setState({ currentInput: "" });
+    this.props.setCurrentInput("");
   };
 
   render() {
@@ -68,21 +58,21 @@ export default class TodoList extends Component {
           <div className="header">
             <span className="heading">Tasks</span>
             <span className="todo-counter">
-              {this.state.completedTodos.length +
+              {this.props.completedTodos.length +
                 "\n/ " +
-                this.state.todos.length}
+                this.props.todos.length}
             </span>
           </div>
           <TodoForm
             handleSubmit={this.handleSubmit}
             handleChange={this.handleChange}
-            currentInput={this.state.currentInput}
+            currentInput={this.props.currentInput}
             handleClear={this.handleClear}
           />
         </div>
         <div className="items-container">
           <ul className="todo-item-list">
-            {this.state.todos.map(({ id, todo, complete }) => (
+            {this.props.todos.map(({ id, todo, complete }) => (
               <TodoItem
                 key={id}
                 todo={todo}
@@ -98,3 +88,18 @@ export default class TodoList extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  addTodo: () => dispatch(addTodo()),
+  deleteTodo: (newTodoList) => dispatch(deleteTodo(newTodoList)),
+  completeTodo: (id) => dispatch(completeTodo(id)),
+  setCurrentInput: (input) => dispatch(setCurrentInput(input)),
+});
+
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todos,
+    completedTodos: state.completedTodos,
+    currentInput: state.currentInput,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

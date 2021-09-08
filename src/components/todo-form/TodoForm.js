@@ -17,6 +17,7 @@ export default function TodoForm({
           placeholder="What do you need to do?"
           onChange={handleChange}
           value={currentInput}
+          autoFocus
         ></input>
         <div className="form-footer">
           <div className="button-wrapper">
