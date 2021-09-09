@@ -41,6 +41,8 @@ class TodoList extends Component {
     const itemComplete = this.props.completedTodos.find(
       (item) => item.id === id
     );
+
+    // don't play the sound if the item is being uncompleted
     if (itemComplete) {
       this.sound.play();
     }
