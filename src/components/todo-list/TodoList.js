@@ -56,35 +56,42 @@ class TodoList extends Component {
   render() {
     return (
       <div className="container">
-        <div className="todo-list">
-          <div className="header">
-            <span className="heading">Tasks</span>
-            <span className="todo-counter">
-              {this.props.completedTodos.length +
-                "\n/ " +
-                this.props.todos.length}
-            </span>
+        <div className="left-section">
+          <div className="todo-list">
+            <div className="header">
+              <span className="heading">Tasks</span>
+              <span className="todo-counter">
+                {this.props.completedTodos.length +
+                  "\n/ " +
+                  this.props.todos.length}
+              </span>
+            </div>
+            <TodoForm
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+              currentInput={this.props.currentInput}
+              handleClear={this.handleClear}
+            />
           </div>
-          <TodoForm
-            handleSubmit={this.handleSubmit}
-            handleChange={this.handleChange}
-            currentInput={this.props.currentInput}
-            handleClear={this.handleClear}
-          />
         </div>
-        <div className="items-container">
-          <ul className="todo-item-list">
-            {this.props.todos.map(({ id, todo, complete }) => (
-              <TodoItem
-                key={id}
-                todo={todo}
-                id={id}
-                complete={complete}
-                handleDelete={this.handleDelete}
-                handleComplete={this.handleComplete}
-              />
-            ))}
-          </ul>
+        <div className="right-section">
+          <div className="items-container">
+            <ul className="todo-item-list">
+              {this.props.todos.map(
+                ({ id, todo, complete, toggleEditorHidden }) => (
+                  <TodoItem
+                    key={id}
+                    todo={todo}
+                    id={id}
+                    editorToggle={toggleEditorHidden}
+                    complete={complete}
+                    handleDelete={this.handleDelete}
+                    handleComplete={this.handleComplete}
+                  />
+                )
+              )}
+            </ul>
+          </div>
         </div>
       </div>
     );

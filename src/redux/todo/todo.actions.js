@@ -16,3 +16,8 @@ export const setCurrentInput = (input) => ({
   type: "SET_CURRENT_INPUT",
   payload: input,
 });
+
+export const toggleEditorHidden = (id) => ({
+  type: "TOGGLE_EDITOR_HIDDEN",
+  payload: id,
+});
