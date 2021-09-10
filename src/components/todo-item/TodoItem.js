@@ -5,32 +5,28 @@ import TodoEditor from "../todo-editor/TodoEditor";
 import { connect } from "react-redux";
 import { toggleEditorHidden } from "../../redux/todo/todo.actions";
 
-const TodoItem = ({
-  id,
-  todo,
-  handleDelete,
-  complete,
-  handleComplete,
-  toggleEditorHidden,
-  editorToggle,
-}) => {
-  console.log(todo);
+const TodoItem = (props) => {
+  const currentTodo = props.todos.find((item) => item.id === props.id);
+  const { id, complete, todoText } = currentTodo;
   return (
-    <li className="todo-item-container" onClick={() => toggleEditorHidden(id)}>
-      {!editorToggle ? (
-        <TodoEditor />
+    <li className="todo-item-container">
+      {!currentTodo.toggleEditorHidden ? (
+        <TodoEditor todo={currentTodo} />
       ) : (
         <div className="todo-item">
           <input
             type="checkbox"
             id="checkbox"
             checked={complete}
-            onChange={() => handleComplete(id)}
+            onChange={() => props.handleComplete(id)}
           />
-          <span className={`todo-text ${complete ? "complete" : ""}`}>
-            {todo}
+          <span
+            onClick={() => props.setEditorHidden(id)}
+            className={`todo-text ${complete ? "complete" : ""}`}
+          >
+            {todoText}
           </span>
-          <button className="delete" onClick={() => handleDelete(id)}>
+          <button className="delete" onClick={() => props.handleDelete(id)}>
             <RiDeleteBin5Line />
           </button>
         </div>
@@ -40,7 +36,11 @@ const TodoItem = ({
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  toggleEditorHidden: (id) => dispatch(toggleEditorHidden(id)),
+  setEditorHidden: (id) => dispatch(toggleEditorHidden(id)),
 });
 
-export default connect(null, mapDispatchToProps)(TodoItem);
+const mapStateToProps = (state) => ({
+  todos: state.todos,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

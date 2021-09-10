@@ -77,19 +77,14 @@ class TodoList extends Component {
         <div className="right-section">
           <div className="items-container">
             <ul className="todo-item-list">
-              {this.props.todos.map(
-                ({ id, todo, complete, toggleEditorHidden }) => (
-                  <TodoItem
-                    key={id}
-                    todo={todo}
-                    id={id}
-                    editorToggle={toggleEditorHidden}
-                    complete={complete}
-                    handleDelete={this.handleDelete}
-                    handleComplete={this.handleComplete}
-                  />
-                )
-              )}
+              {this.props.todos.map((todo) => (
+                <TodoItem
+                  key={todo.id}
+                  id={todo.id}
+                  handleDelete={this.handleDelete}
+                  handleComplete={this.handleComplete}
+                />
+              ))}
             </ul>
           </div>
         </div>

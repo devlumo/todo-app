@@ -1,0 +1,12 @@
+@import "../../utils/variables.scss";
+
+.todo-editor {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 1em;
+  background-color: $white;
+  border-radius: 0.8em;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 10px 20px, rgba(0, 0, 0, 0.1) 0px 3px 6px;
+}

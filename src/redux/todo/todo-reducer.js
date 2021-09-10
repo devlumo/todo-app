@@ -16,7 +16,7 @@ export const todoReducer = (state = INITIAL_STATE, action) => {
           ...state.todos,
           {
             id: uuidv4(),
-            todo: state.currentInput,
+            todoText: state.currentInput,
             complete: false,
             toggleEditorHidden: true,
           },
