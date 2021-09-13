@@ -21,3 +21,8 @@ export const toggleEditorHidden = (id) => ({
   type: "TOGGLE_EDITOR_HIDDEN",
   payload: id,
 });
+
+export const changeTodoValue = (input, id) => ({
+  type: "CHANGE_TODO_VALUE",
+  payload: { input, id },
+});

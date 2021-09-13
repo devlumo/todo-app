@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { completeTodo, toggleEditor } from "./todo.utils";
+import { completeTodo, toggleEditor, updateTodoValue } from "./todo.utils";
 
 const INITIAL_STATE = {
   currentInput: "",
@@ -48,6 +48,18 @@ export const todoReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         todos: toggleEditor(state.todos, action.payload),
+      };
+
+    case "SET_EDITOR_INPUT":
+      return {
+        ...state,
+        editorInput: action.payload,
+      };
+
+    case "CHANGE_TODO_VALUE":
+      return {
+        ...state,
+        todos: updateTodoValue(state.todos, action.payload),
       };
 
     default:
