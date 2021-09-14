@@ -6,9 +6,11 @@ import {
   changeTodoValue,
 } from "../../redux/todo/todo.actions";
 
+import { motion } from "framer-motion";
+
 export const TodoEditor = (props) => {
   return (
-    <div className="todo-editor">
+    <motion.div className="todo-editor" animate={{ height: 1 }}>
       <input
         type="text"
         defaultValue={props.todo.todoText}
@@ -17,7 +19,7 @@ export const TodoEditor = (props) => {
         }
       />
       <button onClick={() => props.setEditorHidden(props.todo.id)}>Done</button>
-    </div>
+    </motion.div>
   );
 };
 
